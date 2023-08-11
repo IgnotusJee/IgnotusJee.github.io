@@ -16,26 +16,26 @@
   <meta name="author" content="柳苏明">
   <meta name="keywords" content="">
   
-    <meta name="description" content="进bitman时写的画板，现在写一个笔记回忆下当时的思路。">
+    <meta name="description" content="基础画板的插件化改造">
 <meta property="og:type" content="article">
-<meta property="og:title" content="2023-1-28画板制作笔记一">
-<meta property="og:url" content="https://ignotusjee.github.io/2023/01/28/2023-1-28%E7%94%BB%E6%9D%BF%E5%88%B6%E4%BD%9C%E4%B8%80/index.html">
+<meta property="og:title" content="2023-1-28画板制作二-插件化改造">
+<meta property="og:url" content="https://ignotusjee.github.io/2023/01/28/2023-1-28%E7%94%BB%E6%9D%BF%E5%88%B6%E4%BD%9C%E4%BA%8C-%E6%8F%92%E4%BB%B6%E5%8C%96%E6%94%B9%E9%80%A0/index.html">
 <meta property="og:site_name" content="Blogotus of I">
-<meta property="og:description" content="进bitman时写的画板，现在写一个笔记回忆下当时的思路。">
+<meta property="og:description" content="基础画板的插件化改造">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://ignotusjee.github.io/img/paintboard/paintboard1.png">
-<meta property="article:published_time" content="2023-01-28T06:45:58.000Z">
-<meta property="article:modified_time" content="2023-02-24T14:21:39.675Z">
+<meta property="og:image" content="https://ignotusjee.github.io/img/paintboard/PaintBoardShow.gif">
+<meta property="article:published_time" content="2023-01-28T14:13:19.000Z">
+<meta property="article:modified_time" content="2023-08-11T02:31:43.650Z">
 <meta property="article:author" content="柳苏明">
 <meta property="article:tag" content="Qt">
 <meta property="article:tag" content="C++">
 <meta property="article:tag" content="开发">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://ignotusjee.github.io/img/paintboard/paintboard1.png">
+<meta name="twitter:image" content="https://ignotusjee.github.io/img/paintboard/PaintBoardShow.gif">
   
   
   
-  <title>2023-1-28画板制作笔记一 | Blogotus of I</title>
+  <title>2023-1-28画板制作二-插件化改造 | Blogotus of I</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -225,7 +225,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="2023-1-28画板制作笔记一"></span>
+            <span id="subtitle" data-typed-text="2023-1-28画板制作二-插件化改造"></span>
           
         </div>
 
@@ -236,8 +236,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-01-28 14:45" pubdate>
-          2023年1月28日 下午
+        <time datetime="2023-01-28 22:13" pubdate>
+          2023年1月28日 晚上
         </time>
       </span>
     
@@ -248,7 +248,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.9k 字
+          1.1k 字
         
       </span>
     
@@ -259,7 +259,7 @@
         
         
         
-          24 分钟
+          10 分钟
         
       </span>
     
@@ -297,54 +297,27 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">2023-1-28画板制作笔记一</h1>
+            <h1 style="display: none">2023-1-28画板制作二-插件化改造</h1>
             
             
               <div class="markdown-body">
                 
-                <p>进bitman时写的画板，现在写一个笔记回忆下当时的思路。</p>
+                <p>基础画板的插件化改造</p>
 <span id="more"></span>
 
-<h1 id="任务内容"><a href="#任务内容" class="headerlink" title="任务内容"></a>任务内容</h1><p>写一个类似于windows画图的画板程序，要求至少提供直线，正方形和圆三种图形，支持拖拽以及文件保存读取。</p>
-<h1 id="用到的Qt特性"><a href="#用到的Qt特性" class="headerlink" title="用到的Qt特性"></a>用到的Qt特性</h1><p>基于知道啥用啥的原则，选择Qt作为sdk编写。Qt的特性决定了这个程序怎么架构。</p>
-<h2 id="信号和槽"><a href="#信号和槽" class="headerlink" title="信号和槽"></a>信号和槽</h2><p>属于Qt元对象机制的内容。</p>
-<blockquote>
-<p>信号与槽（Signal &amp; Slot）是 Qt 编程的基础，也是 Qt 的一大创新。因为有了信号与槽的编程机制，在 Qt 中处理界面各个组件的交互操作时变得更加直观和简单。</p>
-<p>信号（Signal）就是在特定情况下被发射的事件，例如 PushButton 最常见的信号就是鼠标单击时发射的 clicked() 信号，一个 ComboBox 最常见的信号是选择的列表项变化时发射的 CurrentIndexChanged() 信号。</p>
-<p>槽（Slot）就是对信号响应的函数。槽是一个函数，与一般的 C++ 函数一样，可以定义在类的任何部分（public、private 或 protected），可以具有任何参数，也可以被直接调用。槽函数与一般的函数不同的是：槽函数可以与一个信号关联，当信号被发射时，关联的槽函数被自动执行。</p>
-</blockquote>
-<h2 id="事件机制"><a href="#事件机制" class="headerlink" title="事件机制"></a>事件机制</h2><p>键鼠交互和图形绘制所需要。</p>
-<blockquote>
-<p>【1】事件</p>
-<p>事件是可以被控件识别的操作。如按下确定按钮、选择某个单选按钮或复选框。</p>
-<p>每种控件有自己可识别的事件，如窗体的加载、单击、双击等事件，编辑框（文本框）的文本改变事件等等。</p>
-<p>事件就是用户对窗口上各种组件的操作。</p>
-<p>【2】Qt事件</p>
-<p>由窗口系统或Qt自身产生的，用以响应所发生各类事情的操作。具体点，Qt事件是一个QEvent对象，用于描述程序内部或外部发生的动作。</p>
-<p>【3】Qt事件产生类型</p>
-<p>1、键盘或鼠标事件：用户按下或松开键盘或鼠标上的按键时，就可以产生一个键盘或者鼠标事件。</p>
-<p>2、绘制事件：某个窗口第一次显示的时候，就会产生一个绘制事件，用来告诉窗口需要重新绘制它本身，从而使得该窗口可见。</p>
-<p>3、QT事件：Qt自己也会产生很多事件，比如QObject::startTimer()会触发QTimerEvent。</p>
-</blockquote>
-<p>另外还用到了元对象机制的其他内容，如内存管理之类。</p>
-<h1 id="基本构想"><a href="#基本构想" class="headerlink" title="基本构想"></a>基本构想</h1><h2 id="绘图"><a href="#绘图" class="headerlink" title="绘图"></a>绘图</h2><p>设计一个<code>graphcontroller</code>类，包含成员画板<code>QPainter</code>类实例，管理所有的图形和键鼠与画板之间的互动。其定义如下：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">GraphController</span> : <span class="hljs-keyword">public</span> QWidget<br>&#123;<br>    Q_OBJECT<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-keyword">explicit</span> <span class="hljs-title">GraphController</span><span class="hljs-params">(QWidget *parent = <span class="hljs-literal">nullptr</span>)</span></span>;<br><br>    <span class="hljs-keyword">enum</span> <span class="hljs-title class_">Shape</span> &#123;<br>        line = <span class="hljs-number">0</span>, ellipse = <span class="hljs-number">1</span>, rectangle = <span class="hljs-number">2</span><br>    &#125;;<br>    <span class="hljs-keyword">enum</span> <span class="hljs-title class_">Status</span> &#123;<br>        drag, creat, null<br>    &#125;;<br><br>    <span class="hljs-function">QList&lt;GraphBase*&gt;* <span class="hljs-title">GetList</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span></span>;<br><br><span class="hljs-keyword">public</span> slots:<br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">ChangeShape</span><span class="hljs-params">(GraphController::Shape)</span></span>;<br><br><span class="hljs-keyword">protected</span>:<br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">paintEvent</span><span class="hljs-params">(QPaintEvent*)</span></span>;<br><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">mousePressEvent</span><span class="hljs-params">(QMouseEvent*)</span></span>;<br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">mouseReleaseEvent</span><span class="hljs-params">(QMouseEvent*)</span></span>;<br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">mouseMoveEvent</span><span class="hljs-params">(QMouseEvent*)</span></span>;<br><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">keyPressEvent</span><span class="hljs-params">(QKeyEvent*)</span></span>;<br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">keyReleaseEvent</span><span class="hljs-params">(QKeyEvent*)</span></span>;<br><br><span class="hljs-keyword">private</span>:<br>    QList&lt;GraphBase*&gt; ShapeList;<br><br>    <span class="hljs-type">int</span> order_stamp;<br>    Shape current_shape;<br>    Status now_sta;<br>    GraphBase* current_graph;<br>    QPoint relative;<br>    <span class="hljs-type">bool</span> now_shifted;<br><br>&#125;;<br></code></pre></td></tr></table></figure>
-
-<p>在<code>graphcontroller</code>类中使用链表管理当前已经画上的图形，即储存图形抽象类的指针。</p>
-<p>当鼠标按下时，通过事件机制获取当前坐标，此时要判断要进行拖拽还是创建新图形。遍历已画的图形判断即可。</p>
-<p>新建图形时，需记录当前选中的形状；拖拽时，找出顺序戳最前的图形进行选中。另外记录shift键是否按下来绘制方形。接收鼠标位移事件时判断当前画板状态并计算相对位移，注意qt窗口的坐标机制。</p>
-<h2 id="形状"><a href="#形状" class="headerlink" title="形状"></a>形状</h2><p>所有形状继承自抽象类<code>graphbase</code>，重载实现所有功能。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">GraphBase</span> : <span class="hljs-keyword">public</span> QObject<br>&#123;<br>    Q_OBJECT<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-keyword">explicit</span> <span class="hljs-title">GraphBase</span><span class="hljs-params">(QPoint Spos, QPoint Epos, <span class="hljs-type">int</span> order, QObject *parent = <span class="hljs-literal">nullptr</span>)</span></span>;<br><br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">order</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span> <span class="hljs-type">const</span></span>;<br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">move</span><span class="hljs-params">(QPoint, QPoint)</span></span>;<br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">move</span><span class="hljs-params">(QPoint)</span></span>;<br>    <span class="hljs-function">QPoint <span class="hljs-title">StartPoint</span><span class="hljs-params">()</span></span>;<br>    <span class="hljs-function">QPoint <span class="hljs-title">EndPoint</span><span class="hljs-params">()</span></span>;<br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">fixpos</span><span class="hljs-params">()</span></span>;<br><br>    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">paint</span><span class="hljs-params">(QPainter&amp;)</span> </span>= <span class="hljs-number">0</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">bool</span> <span class="hljs-title">inrange</span><span class="hljs-params">(QPoint)</span> </span>= <span class="hljs-number">0</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">int</span> <span class="hljs-title">Shape_type</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span> </span>= <span class="hljs-number">0</span>;<br><br><span class="hljs-keyword">protected</span>:<br>    QPoint Spos, Epos;<br><br>    <span class="hljs-function"><span class="hljs-type">static</span> <span class="hljs-type">bool</span> <span class="hljs-title">equal</span><span class="hljs-params">(qreal, qreal, qreal)</span></span>;<br>    <span class="hljs-function"><span class="hljs-type">static</span> <span class="hljs-type">bool</span> <span class="hljs-title">between</span><span class="hljs-params">(qreal val, qreal a, qreal b)</span></span>;<br><br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-type">int</span> graph_order;<br><br>&#125;;<br></code></pre></td></tr></table></figure>
-
-<p>每个子类要实现三个功能，分别为调用画板绘制当前图形，判断某个点是否位于当前图形上，返回当前图形形状值（这种做法其实不好）。</p>
-<h2 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h2><p>以特定的文字格式输出到某个文件后方便读取，迭代器遍历<code>graphcontroller</code>类中的链表即可。也可以设计输出到二进制文件中，甚至加密。</p>
-<h2 id="主窗口"><a href="#主窗口" class="headerlink" title="主窗口"></a>主窗口</h2><p>新建子组件<code>graphcontroller</code>类以及一堆<code>ToolBar</code>，使窗口上面是工具栏下面是画板。工具栏排布保存加载按钮以及图形选择按钮。</p>
-<h1 id="实现细节"><a href="#实现细节" class="headerlink" title="实现细节"></a>实现细节</h1><h2 id="主窗口与graphcontroller类通讯"><a href="#主窗口与graphcontroller类通讯" class="headerlink" title="主窗口与graphcontroller类通讯"></a>主窗口与<code>graphcontroller</code>类通讯</h2><p>改变当前形状的时候触发<code>mainwindow</code>定义的信号，由<code>graphcontroller</code>类接收。</p>
-<h2 id="图形坐标"><a href="#图形坐标" class="headerlink" title="图形坐标"></a>图形坐标</h2><p>注意基类中记录的图形坐标位于该图形的哪个相对位置，尤其是绘制时和判断点是否在图形上时。</p>
-<h2 id="线段"><a href="#线段" class="headerlink" title="线段"></a>线段</h2><p>线段判断点是否在图形上时，如果采用斜率判断需要特判竖直的情况；如果采用将式子乘开的绝对误差判断则需要与相应的分母作为基准值比较。    </p>
-<h1 id="成品效果"><a href="#成品效果" class="headerlink" title="成品效果"></a>成品效果</h1><p><img src="/img/paintboard/paintboard1.png" srcset="/img/loading.gif" lazyload></p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>不同sdk用的gui机制不同，qt可能算是相对简单的。实际上第一次写完出成品问题挺大的，绘图bug很多，只是勉强能用，所以图形逻辑一定要设计好。</p>
-<p>新手入门Qt渣作。源代码请私聊我喵。</p>
+<h1 id="基础画板的问题"><a href="#基础画板的问题" class="headerlink" title="基础画板的问题"></a>基础画板的问题</h1><p>上文写出的基础画板可以发现很多问题，假如将它实际应用在生产环境中会发现维护和后续开发可能会遇上麻烦。</p>
+<h2 id="controller和graph的耦合"><a href="#controller和graph的耦合" class="headerlink" title="controller和graph的耦合"></a>controller和graph的耦合</h2><p>在<code>graphcontroller</code>类中定义了<code>shape</code>枚举用于储存当前绘制的形状，但是本质只是将已知的形状手动编号，在增改形状时不仅要删改形状本身，还要修改<code>graphcontroller</code>类中的内容，并且这两者是需要在源代码中手动保持一致的，这导致后续对代码的修改变得极为麻烦且易出问题。</p>
+<h2 id="谜语人文件编码"><a href="#谜语人文件编码" class="headerlink" title="谜语人文件编码"></a>谜语人文件编码</h2><p>问题症结与上面类似，在文件读写之中采用编号制度储存形状，这在版本更迭时难以保证兼容性，故应为每个形状添加唯一的标识名称。</p>
+<h2 id="形状难增删"><a href="#形状难增删" class="headerlink" title="形状难增删"></a>形状难增删</h2><p>原因其中之一就是上文说的组件的耦合，另外<code>mainwindow</code>的按钮组件与图形切换的触发机制导致每个单独的形状都需要重新编写一个槽函数以及设置一堆<code>QToolBar</code>属性。</p>
+<h2 id="绘图流程死板"><a href="#绘图流程死板" class="headerlink" title="绘图流程死板"></a>绘图流程死板</h2><p>鼠标事件的处理放在了<code>GraphController</code>中统一进行，不方便加入其他类型的绘画，比如绘制多边形。</p>
+<h1 id="问题的解决方案"><a href="#问题的解决方案" class="headerlink" title="问题的解决方案"></a>问题的解决方案</h1><p>将<code>graphbase</code>作为静态库独立，每个形状将其继承并编写为单个dll文件，即写成一个Qt插件。这样controller和graph之间通讯时必须由前者通过后者的接口获取信息并动态创建管理组件。</p>
+<p>每个形状有一个唯一标识字符串，并应用于文件的保存读取中。</p>
+<h1 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h1><h2 id="静态库GraphPluginBase"><a href="#静态库GraphPluginBase" class="headerlink" title="静态库GraphPluginBase"></a>静态库<code>GraphPluginBase</code></h2><p>作为画画的图形，也就是插件的基类。该类里面定义了形状的基本操作，鼠标的操作状态和命令枚举和鼠标事件函数。所有插件即dll的编写应继承自这个类。</p>
+<h2 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h2><p>每个插件包含了一个形状。在头文件中声明了形状的大写和小写名称作为唯一标识符，重载了一些功能函数和鼠标事件函数。注意<code>paint</code>函数在每个插件里面都需要重载，因为每个形状的绘图逻辑不一样；每个形状应该根据自己的绘图流程重载鼠标事件函数。插件的导出函数有三个，类实例的新建函数、名称获取函数和<code>QAction</code>的获取函数。实际上如果要使代码更加简洁可以将后两者都写到基类里面去。</p>
+<h2 id="绘图控制类GraphController"><a href="#绘图控制类GraphController" class="headerlink" title="绘图控制类GraphController"></a>绘图控制类<code>GraphController</code></h2><p>绘图控制类<code>GraphController</code>主要作用是接收鼠标事件和控制图形行为，是<code>MainWindow</code>的子组件。类中包含插件和图形的<code>QMap</code>或<code>QList</code>，存储了当前已经绘制的图形和已经导入的插件。类接收鼠标事件并根据鼠标时间发生的坐标将事件分发给相应的图形，如何反应又由图形本身决定。</p>
+<h2 id="主窗体MainWindow"><a href="#主窗体MainWindow" class="headerlink" title="主窗体MainWindow"></a>主窗体<code>MainWindow</code></h2><p>主窗体主要控制窗体gui插件以及主导插件导入工作，使用了大量信号和槽。</p>
+<h2 id="形状容器ShapeContainer"><a href="#形状容器ShapeContainer" class="headerlink" title="形状容器ShapeContainer"></a>形状容器<code>ShapeContainer</code></h2><p>主要用于主窗体选择形状信号的分发以及形状名称的临时保存。</p>
+<h1 id="成品效果"><a href="#成品效果" class="headerlink" title="成品效果"></a>成品效果</h1><p><img src="/img/paintboard/PaintBoardShow.gif" srcset="/img/loading.gif" lazyload></p>
 
                 
               </div>
@@ -394,8 +367,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>2023-1-28画板制作笔记一</div>
-      <div>https://ignotusjee.github.io/2023/01/28/2023-1-28画板制作一/</div>
+      <div>2023-1-28画板制作二-插件化改造</div>
+      <div>https://ignotusjee.github.io/2023/01/28/2023-1-28画板制作二-插件化改造/</div>
     </div>
     <div class="license-meta">
       
@@ -439,9 +412,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/01/28/2023-1-28%E7%94%BB%E6%9D%BF%E5%88%B6%E4%BD%9C%E4%BA%8C-%E6%8F%92%E4%BB%B6%E5%8C%96%E6%94%B9%E9%80%A0/" title="2023-1-28画板制作二-插件化改造">
+                      <a href="/2023/02/24/2023-2-24-%E7%97%85%E6%AF%92%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" title="2023-2-24-病毒学习笔记~文件系统">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">2023-1-28画板制作二-插件化改造</span>
+                        <span class="hidden-mobile">2023-2-24-病毒学习笔记~文件系统</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -449,8 +422,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/11/16/2022-11-16-python%E6%9D%82%E8%AE%B0/" title="python杂记">
-                        <span class="hidden-mobile">python杂记</span>
+                      <a href="/2023/01/28/2023-1-28%E7%94%BB%E6%9D%BF%E5%88%B6%E4%BD%9C%E4%B8%80/" title="2023-1-28画板制作笔记一">
+                        <span class="hidden-mobile">2023-1-28画板制作笔记一</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

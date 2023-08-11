@@ -24,7 +24,7 @@
 <meta property="og:description" content="其他学习中碰到的python知识，做一个杂烩记录">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-11-16T12:05:55.000Z">
-<meta property="article:modified_time" content="2023-01-27T12:53:22.568Z">
+<meta property="article:modified_time" content="2023-06-08T14:16:09.548Z">
 <meta property="article:author" content="柳苏明">
 <meta property="article:tag" content="python">
 <meta property="article:tag" content="语法">
@@ -427,7 +427,7 @@
 <li>stop: 计数到 stop 结束，但不包括 stop。例如：range（0， 5） 是[0, 1, 2, 3, 4]没有5</li>
 <li>step：步长，默认为1。例如：range（0， 5） 等价于 range(0, 5, 1)</li>
 </ul>
-<h1 id="with-关键字"><a href="#with-关键字" class="headerlink" title="with 关键字"></a>with 关键字</h1><p>（１）紧跟with后面的语句被求值后，返回对象的“–enter–()”方法被调用，这个方法的返回值将被赋值给as后面的变量；<br>（２）当with后面的代码块全部被执行完之后，将调用前面返回对象的“–exit–()”方法。<br>with工作原理代码示例：</p>
+<h1 id="with-关键字"><a href="#with-关键字" class="headerlink" title="with 关键字"></a>with 关键字</h1><p>（１）紧跟with后面的语句被求值后，返回对象的“_<em>enter</em>_()”方法被调用，这个方法的返回值将被赋值给as后面的变量；<br>（２）当with后面的代码块全部被执行完之后，将调用前面返回对象的“–exit–()”方法。<br>with工作原理代码示例：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Sample</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__enter__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">print</span> <span class="hljs-string">&quot;in __enter__&quot;</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Foo&quot;</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__exit__</span>(<span class="hljs-params">self, exc_type, exc_val, exc_tb</span>):<br>        <span class="hljs-built_in">print</span> <span class="hljs-string">&quot;in __exit__&quot;</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_sample</span>():<br>    <span class="hljs-keyword">return</span> Sample()<br><span class="hljs-keyword">with</span> get_sample() <span class="hljs-keyword">as</span> sample:<br>    <span class="hljs-built_in">print</span> <span class="hljs-string">&quot;Sample: &quot;</span>, sample12345678910<br></code></pre></td></tr></table></figure>
 
 <p>代码的运行结果如下：</p>
