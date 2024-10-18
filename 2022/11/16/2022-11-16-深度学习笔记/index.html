@@ -1,0 +1,339 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>深度学习笔记 | Blognotus</title><meta name="author" content="柳苏明"><meta name="copyright" content="柳苏明"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="为了互导的论文，开始学深度学习了。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深度学习笔记">
+<meta property="og:url" content="https://ignotusjee.github.io/2022/11/16/2022-11-16-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Blognotus">
+<meta property="og:description" content="为了互导的论文，开始学深度学习了。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ignotusjee.github.io/img/pic14.jpg">
+<meta property="article:published_time" content="2022-11-16T11:11:10.000Z">
+<meta property="article:modified_time" content="2024-06-19T07:14:26.158Z">
+<meta property="article:author" content="柳苏明">
+<meta property="article:tag" content="机器学习">
+<meta property="article:tag" content="Pytorch">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ignotusjee.github.io/img/pic14.jpg"><link rel="shortcut icon" href="/img/logo/1.jpg"><link rel="canonical" href="https://ignotusjee.github.io/2022/11/16/2022-11-16-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        if (name && globalFn[key][name]) return
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-STPMLF8JXN"></script><script>window.dataLayer = window.dataLayer || []
+function gtag(){dataLayer.push(arguments)}
+gtag('js', new Date())
+gtag('config', 'G-STPMLF8JXN')
+btf.addGlobalFn('pjaxComplete', () => {
+  gtag('config', 'G-STPMLF8JXN', {'page_path': window.location.pathname})
+}, 'google_analytics')
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":true,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"已切换为繁体中文","cht_to_chs":"已切换为简体中文","day_to_night":"已切换为深色模式","night_to_day":"已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"top-center"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '深度学习笔记',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-06-19 15:14:26'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+btf.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
+
+</script><link rel="stylesheet" href="/css/flat-top.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js/pace.min.js"></script><div id="web_bg" style="background-image: url(/img/pic6.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">11</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">19</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/img/pic14.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Blognotus</span></a><a class="nav-page-title" href="/"><span class="site-name">深度学习笔记</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">深度学习笔记</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-11-16T11:11:10.000Z" title="发表于 2022-11-16 19:11:10">2022-11-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-06-19T07:14:26.158Z" title="更新于 2024-06-19 15:14:26">2024-06-19</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>为了互导的论文，开始学深度学习了。</p>
+<span id="more"></span>
+<h1><em>pytorch</em>的使用</h1>
+<h2 id="torch-normal"><code>torch.normal</code></h2>
+<ul>
+<li>
+<p>作用：生成一个正态分布的张量</p>
+</li>
+<li>
+<p><code>torch.normal(mean, std, size)</code></p>
+<p>三个参数分别为均值，标准差和size</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>torch.normal(<span class="number">3</span>, <span class="number">0.1</span>, (<span class="number">3</span>, <span class="number">4</span>))</span><br><span class="line">tensor([[<span class="number">2.9425</span>, <span class="number">3.1877</span>, <span class="number">2.9735</span>, <span class="number">3.0982</span>],</span><br><span class="line">        [<span class="number">3.0061</span>, <span class="number">2.9918</span>, <span class="number">2.7953</span>, <span class="number">3.0066</span>],</span><br><span class="line">        [<span class="number">2.8219</span>, <span class="number">2.9578</span>, <span class="number">2.8813</span>, <span class="number">2.9014</span>]])</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>torch.normal(mean, stds)</code></p>
+<p>两个参数分别为:均值和标准差，使用标准差来确定范围size</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>torch.normal(<span class="number">3</span>, torch.ones(<span class="number">3</span>, <span class="number">4</span>)/<span class="number">10</span>)</span><br><span class="line">tensor([[<span class="number">2.8491</span>, <span class="number">3.0263</span>, <span class="number">3.0888</span>, <span class="number">3.0818</span>],</span><br><span class="line">        [<span class="number">3.1101</span>, <span class="number">2.7490</span>, <span class="number">3.1847</span>, <span class="number">3.0861</span>],</span><br><span class="line">        [<span class="number">2.8530</span>, <span class="number">2.8666</span>, <span class="number">2.9634</span>, <span class="number">3.1875</span>]])</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1>简易深度学习模型的实现(线性回归)</h1>
+<h2 id="1-生成正态分布的数据">1. 生成正态分布的数据</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">synthetic_data</span>(<span class="params">w, b, num_examples</span>): <span class="comment">#@save</span></span><br><span class="line">    X = torch.normal(<span class="number">0</span>, <span class="number">1</span>, (num_examples, <span class="built_in">len</span>(w))) <span class="comment"># 按数据规模随机生成原始数据</span></span><br><span class="line">    y = torch.matmul(X, w) + b</span><br><span class="line">    y += torch.normal(<span class="number">0</span>, <span class="number">0.01</span>, y.shape) <span class="comment"># 加上正态分布噪声</span></span><br><span class="line">    <span class="keyword">return</span> X, y.reshape((-<span class="number">1</span>, <span class="number">1</span>))</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">true_w = torch.tensor([<span class="number">2</span>, -<span class="number">3.4</span>])</span><br><span class="line">true_b = <span class="number">4.2</span></span><br><span class="line">features, labels = synthetic_data(true_w, true_b, <span class="number">1000</span>)</span><br></pre></td></tr></table></figure>
+<p>其中features中的每⼀⾏都包含⼀个⼆维数据样本，labels中的每⼀⾏都包含⼀维标签值（⼀个标量）</p>
+<p>简记：<code>feature</code>为自变量（可能多维），<code>lables</code>为函数</p>
+<h2 id="2-读取数据集">2. 读取数据集</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">data_iter</span>(<span class="params">batch_size, features, labels</span>):</span><br><span class="line">    num_examples = <span class="built_in">len</span>(features)</span><br><span class="line">    indices = <span class="built_in">list</span>(<span class="built_in">range</span>(num_examples))</span><br><span class="line">    <span class="comment"># 这些样本是随机读取的，没有特定的顺序</span></span><br><span class="line">    random.shuffle(indices)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, num_examples, batch_size):</span><br><span class="line">        batch_indices = torch.tensor(</span><br><span class="line">            indices[i: <span class="built_in">min</span>(i + batch_size, num_examples)])</span><br><span class="line">        <span class="keyword">yield</span> features[batch_indices], labels[batch_indices]</span><br></pre></td></tr></table></figure>
+<p>每次随机返回至多<code>batch_size</code>组数据</p>
+<p>使用示例</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">batch_size = <span class="number">10</span></span><br><span class="line"><span class="keyword">for</span> X, y <span class="keyword">in</span> data_iter(batch_size, features, labels):</span><br><span class="line">    <span class="built_in">print</span>(X, <span class="string">&#x27;\n&#x27;</span>, y)</span><br><span class="line">    <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+<p>但这种简易的随机读取数据的方式效率不佳</p>
+<h2 id="3-参数的初始化及一队定义">3. 参数的初始化及一队定义</h2>
+<h3 id="初始化超参数">初始化超参数</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">w = torch.normal(<span class="number">0</span>, <span class="number">0.01</span>, size=(<span class="number">2</span>,<span class="number">1</span>), requires_grad=<span class="literal">True</span>)</span><br><span class="line">b = torch.zeros(<span class="number">1</span>, requires_grad=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="线性回归模型">线性回归模型</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">linreg</span>(<span class="params">X, w, b</span>): <span class="comment">#@save</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;线性回归模型&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">return</span> torch.matmul(X, w) + b</span><br></pre></td></tr></table></figure>
+<p>当我们⽤⼀个向量加⼀个标量时，标量会被加到向量的每个 分量上。</p>
+<h3 id="损失函数">损失函数</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">squared_loss</span>(<span class="params">y_hat, y</span>): <span class="comment">#@save</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;均⽅损失&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">return</span> (y_hat - y.reshape(y_hat.shape)) ** <span class="number">2</span> / <span class="number">2</span></span><br></pre></td></tr></table></figure>
+<h3 id="优化算法">优化算法</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">sgd</span>(<span class="params">params, lr, batch_size</span>): <span class="comment">#@save</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;⼩批量随机梯度下降&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">    <span class="keyword">for</span> param <span class="keyword">in</span> params:</span><br><span class="line">        param -= lr * param.grad / batch_size</span><br><span class="line">        param.grad.zero_()</span><br></pre></td></tr></table></figure>
+<h2 id="3-训练">3.训练</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">lr = <span class="number">0.03</span></span><br><span class="line">num_epochs = <span class="number">3</span></span><br><span class="line">net = linreg</span><br><span class="line">loss = squared_loss</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(num_epochs):</span><br><span class="line">    <span class="keyword">for</span> X, y <span class="keyword">in</span> data_iter(batch_size, features, labels):</span><br><span class="line">        l = loss(net(X, w, b), y) <span class="comment"># X和y的⼩批量损失</span></span><br><span class="line">        <span class="comment"># 因为l形状是(batch_size,1)，⽽不是⼀个标量。l中的所有元素被加到⼀起，</span></span><br><span class="line">        <span class="comment"># 并以此计算关于[w,b]的梯度</span></span><br><span class="line">        l.<span class="built_in">sum</span>().backward()</span><br><span class="line">        sgd([w, b], lr, batch_size) <span class="comment"># 使⽤参数的梯度更新参数</span></span><br><span class="line">    <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">        train_l = loss(net(features, w, b), labels)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&#x27;epoch <span class="subst">&#123;epoch + <span class="number">1</span>&#125;</span>, loss <span class="subst">&#123;<span class="built_in">float</span>(train_l.mean()):f&#125;</span>&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<h1>线性模型的简单实现</h1>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">from</span> torch.utils <span class="keyword">import</span> data</span><br><span class="line"><span class="keyword">from</span> d2l <span class="keyword">import</span> torch <span class="keyword">as</span> d2l</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">synthetic_data</span>(<span class="params">w, b, num_examples</span>) : <span class="comment">#@save</span></span><br><span class="line">    X = torch.normal(<span class="number">0</span>, <span class="number">1</span>, (num_examples, <span class="built_in">len</span>(w))) <span class="comment"># 按数据规模随机生成原始数据</span></span><br><span class="line">    y = torch.matmul(X, w) + b</span><br><span class="line">    y += torch.normal(<span class="number">0</span>, <span class="number">0.01</span>, y.shape) <span class="comment"># 加上正态分布噪声</span></span><br><span class="line">    <span class="keyword">return</span> X, y.reshape((-<span class="number">1</span>, <span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">true_w = torch.tensor([<span class="number">2</span>, -<span class="number">3.4</span>])</span><br><span class="line">true_b = <span class="number">4.2</span></span><br><span class="line">features, labels = d2l.synthetic_data(true_w, true_b, <span class="number">1000</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># is_train参数表示是否每个迭代周期打乱数据</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">load_array</span>(<span class="params">data_arrays, batch_size, is_train=<span class="literal">True</span></span>) : <span class="comment">#@save</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;构造⼀个PyTorch数据迭代器&quot;&quot;&quot;</span></span><br><span class="line">    dataset = data.TensorDataset(*data_arrays)</span><br><span class="line">    <span class="keyword">return</span> data.DataLoader(dataset, batch_size, shuffle=is_train)</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">next(iter(data_iter))调用这个迭代器</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">batch_size = <span class="number">10</span></span><br><span class="line">data_iter = load_array((features, labels), batch_size)</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> torch <span class="keyword">import</span> nn</span><br><span class="line"><span class="comment"># Sequential实现神经网络多层的串联</span></span><br><span class="line"><span class="comment"># Linear全连接层</span></span><br><span class="line">net = nn.Sequential(nn.Linear(<span class="number">2</span>, <span class="number">1</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># net[0]访问第一层</span></span><br><span class="line">net[<span class="number">0</span>].weight.data.normal_(<span class="number">0</span>, <span class="number">0.01</span>)</span><br><span class="line">net[<span class="number">0</span>].bias.data.fill_(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 平方L2范数，即均方误差</span></span><br><span class="line">loss = nn.MSELoss()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义优化算法：小批量梯度随机下降</span></span><br><span class="line"><span class="comment"># lr 为学习率</span></span><br><span class="line">trainer = torch.optim.SGD(net.parameters(), lr=<span class="number">0.03</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 训练</span></span><br><span class="line">num_epochs = <span class="number">3</span> <span class="comment"># 迭代周期个数</span></span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(num_epochs):</span><br><span class="line">    <span class="keyword">for</span> X, y <span class="keyword">in</span> data_iter:</span><br><span class="line">        l = loss(net(X) ,y)</span><br><span class="line">        trainer.zero_grad()</span><br><span class="line">        l.backward()</span><br><span class="line">        trainer.step()</span><br><span class="line">    l = loss(net(features), labels)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;epoch <span class="subst">&#123;epoch + <span class="number">1</span>&#125;</span>, loss <span class="subst">&#123;l:f&#125;</span>&#x27;</span>)</span><br><span class="line"></span><br><span class="line">w = net[<span class="number">0</span>].weight.data</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;w的估计误差：&#x27;</span>, true_w - w.reshape(true_w.shape))</span><br><span class="line">b = net[<span class="number">0</span>].bias.data</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;b的估计误差：&#x27;</span>, true_b - b)</span><br></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://ignotusjee.github.io">柳苏明</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://ignotusjee.github.io/2022/11/16/2022-11-16-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">https://ignotusjee.github.io/2022/11/16/2022-11-16-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://ignotusjee.github.io" target="_blank">Blognotus</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a><a class="post-meta__tags" href="/tags/Pytorch/">Pytorch</a></div><div class="post-share"><div class="social-share" data-image="/img/pic14.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="prev-post pull-full" href="/2022/11/16/2022-11-16-python%E6%9D%82%E8%AE%B0/" title="python杂记"><img class="cover" src="/img/pic18.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">python杂记</div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a href="/2023/08/16/2023-8-16%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA/" title="深度学习笔记II 多层感知机"><img class="cover" src="/img/pic24.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-16</div><div class="title">深度学习笔记II 多层感知机</div></div></a><a href="/2023/08/02/2023-8-2%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="深度学习笔记I 线性回归"><img class="cover" src="/img/cover2.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-02</div><div class="title">深度学习笔记I 线性回归</div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info is-center"><div class="avatar-img"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">柳苏明</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">11</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">19</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/IgnotusJee"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">pytorch的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#torch-normal"><span class="toc-number">1.1.</span> <span class="toc-text">torch.normal</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">简易深度学习模型的实现(线性回归)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E7%94%9F%E6%88%90%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83%E7%9A%84%E6%95%B0%E6%8D%AE"><span class="toc-number">2.1.</span> <span class="toc-text">1. 生成正态分布的数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E8%AF%BB%E5%8F%96%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-number">2.2.</span> <span class="toc-text">2. 读取数据集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%8F%82%E6%95%B0%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E5%8F%8A%E4%B8%80%E9%98%9F%E5%AE%9A%E4%B9%89"><span class="toc-number">2.3.</span> <span class="toc-text">3. 参数的初始化及一队定义</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E8%B6%85%E5%8F%82%E6%95%B0"><span class="toc-number">2.3.1.</span> <span class="toc-text">初始化超参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B"><span class="toc-number">2.3.2.</span> <span class="toc-text">线性回归模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0"><span class="toc-number">2.3.3.</span> <span class="toc-text">损失函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95"><span class="toc-number">2.3.4.</span> <span class="toc-text">优化算法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E8%AE%AD%E7%BB%83"><span class="toc-number">2.4.</span> <span class="toc-text">3.训练</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">线性模型的简单实现</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/10/18/f2fs-process/" title="F2FS 文件流程浅析"><img src="/img/pic11.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="F2FS 文件流程浅析"/></a><div class="content"><a class="title" href="/2024/10/18/f2fs-process/" title="F2FS 文件流程浅析">F2FS 文件流程浅析</a><time datetime="2024-10-18T14:26:27.000Z" title="发表于 2024-10-18 22:26:27">2024-10-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/10/18/Linux-Debug/" title="编译调试内核方法"><img src="/img/pic17.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="编译调试内核方法"/></a><div class="content"><a class="title" href="/2024/10/18/Linux-Debug/" title="编译调试内核方法">编译调试内核方法</a><time datetime="2024-10-18T14:22:35.000Z" title="发表于 2024-10-18 22:22:35">2024-10-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/10/18/PCIE-NOTE-1/" title="PCIE学习笔记（一）PCI"><img src="/img/cover1.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="PCIE学习笔记（一）PCI"/></a><div class="content"><a class="title" href="/2024/10/18/PCIE-NOTE-1/" title="PCIE学习笔记（一）PCI">PCIE学习笔记（一）PCI</a><time datetime="2024-10-18T14:17:25.000Z" title="发表于 2024-10-18 22:17:25">2024-10-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/08/16/2023-8-16%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA/" title="深度学习笔记II 多层感知机"><img src="/img/pic24.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深度学习笔记II 多层感知机"/></a><div class="content"><a class="title" href="/2023/08/16/2023-8-16%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA/" title="深度学习笔记II 多层感知机">深度学习笔记II 多层感知机</a><time datetime="2023-08-16T08:26:34.000Z" title="发表于 2023-08-16 16:26:34">2023-08-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/08/02/2023-8-2%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="深度学习笔记I 线性回归"><img src="/img/cover2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深度学习笔记I 线性回归"/></a><div class="content"><a class="title" href="/2023/08/02/2023-8-2%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="深度学习笔记I 线性回归">深度学习笔记I 线性回归</a><time datetime="2023-08-02T12:11:10.000Z" title="发表于 2023-08-02 20:11:10">2023-08-02</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/img/pic6.png);"><div id="footer-wrap"><div class="copyright">&copy;2024 By 柳苏明</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Hi, welcome to my <a target="_blank" rel="noopener" href="https://butterfly.js.org/">blog</a>!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>(() => {
+  const panguFn = () => {
+    if (typeof pangu === 'object') pangu.autoSpacingPage()
+    else {
+      btf.getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+        .then(() => {
+          pangu.autoSpacingPage()
+        })
+    }
+  }
+
+  const panguInit = () => {
+    if (false){
+      GLOBAL_CONFIG_SITE.isPost && panguFn()
+    } else {
+      panguFn()
+    }
+  }
+
+  btf.addGlobalFn('pjaxComplete', panguInit, 'pangu')
+  document.addEventListener('DOMContentLoaded', panguInit)
+})()</script><div class="js-pjax"><script>(async () => {
+  const showKatex = () => {
+    document.querySelectorAll('#article-container .katex').forEach(el => el.classList.add('katex-show'))
+  }
+
+  if (!window.katex_js_css) {
+    window.katex_js_css = true
+    await btf.getCSS('https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css')
+    if (false) {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js')
+    }
+  }
+
+  showKatex()
+})()</script><script>(() => {
+  const initValine = () => {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'MHozXOxqywpXLAwxn97T8VnD-MdYXbMMI',
+      appKey: 'cf4NSw5K8ck4mowmdGGtoxvq',
+      avatar: 'identicon',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  const loadValine = async () => {
+    if (typeof Valine === 'function') initValine()
+    else {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js')
+      initValine()
+    }
+  }
+
+  if ('Valine' === 'Valine' || !false) {
+    if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+    else setTimeout(loadValine, 0)
+  } else {
+    window.loadOtherComment = loadValine
+  }
+})()</script></div><div class="aplayer no-destroy" data-id="7876594346" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="true" data-mini="true"> </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: true,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      pjax.loadUrl('/404.html')
+    }
+  })
+})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="search what you want" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
